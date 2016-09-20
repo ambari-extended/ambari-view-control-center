@@ -1,0 +1,52 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.0.RELEASE'
+        keycloakVersion = '2.2.0.Final'
+	}
+	repositories {
+		mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+		mavenLocal()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "org.apache.ambari:ambari-view-gradle-plugin:1.0-SNAPSHOT"
+		classpath "io.franzbecker:gradle-lombok:1.7"
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'spring-boot'
+apply plugin: 'ambari-view-ember-cli'
+apply plugin: 'io.franzbecker.gradle-lombok'
+
+jar {
+	baseName = 'ambari-view-control-center'
+	version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-data-jpa') {
+        exclude module: 'tomcat-jdbc'
+    }
+	compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.boot:spring-boot-devtools')
+	runtime('com.h2database:h2')
+	runtime('mysql:mysql-connector-java')
+    compile 'org.flywaydb:flyway-core:4.0.3'
+    compile 'com.zaxxer:HikariCP:2.5.0'
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile 'org.spockframework:spock-spring:1.0-groovy-2.4'
+    testCompile 'cglib:cglib-nodep:3.2.2'
+}
