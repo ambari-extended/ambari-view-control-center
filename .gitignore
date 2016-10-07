@@ -1,13 +1,27 @@
-### IntelliJ ###
-.idea
-gradle-app.setting
-
-### Gradle ###
-build/
 .gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
 
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
+### STS ###
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
 
-# Mac OS specific
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+### Mac OS specific ###
 .DS_Store

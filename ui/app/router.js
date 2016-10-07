@@ -7,6 +7,13 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.route('dashboard');
+  this.route('clusters');
+  this.route('views');
+  this.route('repositories');
+  this.route('hosts');
+  this.route('about');
+  this.route('settings');
 });
 
 export default Router;

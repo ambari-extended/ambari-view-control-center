@@ -1,0 +1,8 @@
+{{#bs-nav type="pills" stacked="true"}}
+  {{#each menuConfig as |menuItem|}}
+    {{#bs-nav-item}}
+    {{#link-to menuItem.link}}<span class="sidebar-icon">{{fa-icon menuItem.icon size="2"}}</span>{{menuItem.name}}{{/link-to}}
+    {{/bs-nav-item}}
+  {{/each}}
+
+{{/bs-nav}}

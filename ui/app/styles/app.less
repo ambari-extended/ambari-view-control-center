@@ -1,8 +1,41 @@
 @import "bootstrap";
-//@import "theme";
+@import "fonts";
 
-@navbar-default-bg: #69be28;
-@navbar-default-link-color: #ffffff;
+
+@body-bg: #fafafa;
+@navbar-default-bg: #ebebeb;
+@navbar-default-link-color: #777;
 
 
 @border-radius-base: 0px;
+
+
+.navbar-brand {
+  > img {
+    display: inline-block;
+  }
+}
+
+#sidebar-wrapper {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  float: left;
+  width: 260px;
+  height: 100%;
+  background-color: #3b5f7c;
+
+}
+
+.nav-pills > li > a{
+  color: #fafafa;
+
+}
+
+#main {
+  margin-left: 260px;
+}
+
+.sidebar-icon {
+  margin-right: 10px;
+}
