@@ -1,0 +1,56 @@
+@import 'variables';
+@import 'fonts';
+@import 'bootstrap';
+
+@import "ember-modal-dialog/ember-modal-structure";
+@import "ember-modal-dialog/ember-modal-appearance";
+
+
+.ember-modal-dialog {
+  box-shadow: 0 0 5px grey;
+  padding: 0px;
+}
+.ember-modal-overlay.translucent {
+  background-color: rgba(#808080, .77);
+}
+
+.navbar-brand {
+  > img {
+    display: inline-block;
+  }
+}
+
+
+.nav-pills > li > a{
+  color: #fafafa;
+}
+
+.sidebar-icon {
+  margin-right: 10px;
+}
+
+.sub-header {
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ebebeb;
+  p {
+    font-size: 1.5em;
+    margin: 5px 0 0 0;
+  }
+}
+
+.collection-table {
+  .table-header {
+    margin: 5px 0px 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid grey;
+
+    font-size: 1.1em;
+  }
+
+  .table-row {
+    margin-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ebebeb;
+  }
+}

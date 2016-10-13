@@ -10,7 +10,9 @@ Router.map(function() {
   this.route('dashboard');
   this.route('clusters');
   this.route('views');
-  this.route('repositories');
+  this.route('repositories', function() {
+    this.route('new');
+  });
   this.route('hosts');
   this.route('about');
   this.route('settings');
