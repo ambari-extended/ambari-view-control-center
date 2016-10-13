@@ -39,7 +39,9 @@
         {{registry.scanStatus}}
       </div>
       <div class="col-md-2">
-        {{moment-from-now registry.lastScannedAt hideSuffix=true}} ago
+        {{#if registry.lastScannedAt}}
+          {{moment-from-now registry.lastScannedAt hideSuffix=true}} ago
+        {{/if}}
       </div>
       <div class="col-md-1 text-center">
         <div class="dropdown">

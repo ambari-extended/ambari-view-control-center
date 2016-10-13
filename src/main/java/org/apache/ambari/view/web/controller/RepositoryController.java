@@ -18,11 +18,61 @@
 
 package org.apache.ambari.view.web.controller;
 
+import lombok.extern.slf4j.Slf4j;
+import org.apache.ambari.view.web.model.dto.RepositoryWrapper;
+import org.apache.ambari.view.web.model.entity.Registry;
+import org.apache.ambari.view.web.service.RepositoryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  *
  */
+@Slf4j
 @RestController
+@RequestMapping("/api/v1/repositories")
 public class RepositoryController {
+
+  private final RepositoryService repositoryService;
+
+  @Autowired
+  public RepositoryController(RepositoryService repositoryService) {
+    this.repositoryService = repositoryService;
+  }
+
+  @GetMapping
+  public RepositoryWrapper.FindAllResponse getAll() {
+    List<Registry> registries = repositoryService.findAll();
+    return new RepositoryWrapper.FindAllResponse(registries);
+  }
+
+  @PostMapping
+  public RepositoryWrapper.CreateResponse create(@RequestBody RepositoryWrapper.CreateRequest request) {
+    Registry registry = repositoryService.create(request);
+    return new RepositoryWrapper.CreateResponse(registry);
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity destroy() {
+    return null;
+  }
+
+  @PostMapping("/{id}/start")
+  public ResponseEntity start() {
+    return null;
+  }
+
+  @PostMapping("/{id}/stop")
+  public ResponseEntity stop() {
+    return null;
+  }
 }
+

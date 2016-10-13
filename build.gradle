@@ -50,3 +50,7 @@ dependencies {
     testCompile 'org.spockframework:spock-spring:1.0-groovy-2.4'
     testCompile 'cglib:cglib-nodep:3.2.2'
 }
+
+emberCli {
+	proxyUrl "http://localhost:8080"
+}
