@@ -85,4 +85,19 @@ public class RepositoryWrapper {
       return scanStatus == RegistryScanStatus.RUNNING;
     }
   }
+
+  @Data
+  public static class ActionRequest {
+    private InnerRequest repository;
+
+    @Data
+    public static class InnerRequest {
+      private Actions action;
+    }
+
+    public enum Actions {
+      START,
+      STOP
+    }
+  }
 }

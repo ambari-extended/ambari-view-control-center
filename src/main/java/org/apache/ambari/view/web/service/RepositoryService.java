@@ -27,6 +27,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static org.apache.ambari.view.web.model.dto.RepositoryWrapper.ActionRequest.Actions;
+
 /**
  *
  */
@@ -51,5 +53,25 @@ public class RepositoryService {
 
   public List<Registry> findAll() {
     return registryRepository.findAll();
+  }
+
+  public void destroy(Long id) {
+    registryRepository.delete(id);
+  }
+
+  public void start(Long id, RepositoryWrapper.ActionRequest request) {
+    Registry registry = registryRepository.findOne(id);
+    if(registry == null) {
+      log.error("No registry found with id {}", id);
+      //throw not found exception
+      return;
+    }
+
+    // TODO
+    if (request.getRepository().getAction() == Actions.START) {
+      log.info("Starting sync for '{}' registry", registry.getName());
+    } else {
+      log.info("Stopping sync for '{}' registry", registry.getName());
+    }
   }
 }

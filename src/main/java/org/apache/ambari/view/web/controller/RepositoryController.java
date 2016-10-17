@@ -26,12 +26,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -61,18 +64,17 @@ public class RepositoryController {
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity destroy() {
-    return null;
+  public ResponseEntity<Map<String, String>> destroy(@PathVariable("id") Long id) {
+    repositoryService.destroy(id);
+    Map<String, String> emptyMap = new HashMap<>();
+    return ResponseEntity.ok(emptyMap);
   }
 
-  @PostMapping("/{id}/start")
-  public ResponseEntity start() {
-    return null;
-  }
-
-  @PostMapping("/{id}/stop")
-  public ResponseEntity stop() {
-    return null;
+  @PostMapping("/{id}/action")
+  public ResponseEntity<Map<String, String>> start(@PathVariable("id") Long id, @RequestBody RepositoryWrapper.ActionRequest request) {
+    repositoryService.start(id, request);
+    Map<String, String> emptyMap = new HashMap<>();
+    return ResponseEntity.ok(emptyMap);
   }
 }
 
