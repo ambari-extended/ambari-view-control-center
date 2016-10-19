@@ -28,8 +28,5 @@ import java.util.Optional;
  * Repository for view package definitions
  */
 public interface PackageRepository extends JpaRepository<Package, Long> {
-
-  Optional<Package> findByOrganizationAndName(String organization, String name);
-  Collection<Package> findByName(String name);
-  Collection<Package> findByOrganization(String organization);
+  Optional<Package> findByName(String name);
 }

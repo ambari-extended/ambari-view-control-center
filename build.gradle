@@ -46,6 +46,9 @@ dependencies {
 	runtime('mysql:mysql-connector-java')
     compile 'org.flywaydb:flyway-core:4.0.3'
     compile 'com.zaxxer:HikariCP:2.5.0'
+	compile group: 'com.typesafe.akka', name: 'akka-actor_2.11', version: '2.4.11'
+	compile group: 'org.scala-lang', name: 'scala-library', version: '2.11.8'
+	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile 'org.spockframework:spock-spring:1.0-groovy-2.4'
     testCompile 'cglib:cglib-nodep:3.2.2'

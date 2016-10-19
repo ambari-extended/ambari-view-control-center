@@ -16,41 +16,22 @@
  * limitations under the License.
  */
 
-package org.apache.ambari.view.web.model.entity;
+package org.apache.ambari.view.web.service;
 
-import lombok.Data;
+import akka.actor.ActorRef;
+import org.apache.ambari.view.web.model.dto.ws.Application;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 /**
  *
  */
-@Data
-@Entity
-@Table(name = "packages")
-public class Package {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
-
-  private String name;
-
-  @ManyToOne
-  private Registry registry;
-
-  @OneToMany(fetch = FetchType.EAGER,
-      mappedBy = "viewPackage",
-      cascade = CascadeType.ALL)
-  private Collection<PackageVersion> versions = new LinkedList<>();
-
+public interface PackageScannerService {
+  Optional<Date> getLastScannedTimestamp(String repoName);
+  void updateApplications(List<Application> applications, String repoName);
+  void scaningStopped(String repoName);
+  void scaningError(String repoName);
+  void initializeRepositoryScan(ActorRef scanManager);
 }

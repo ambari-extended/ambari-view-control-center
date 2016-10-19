@@ -24,6 +24,6 @@ package org.apache.ambari.view.internal;
 public enum RegistryScanStatus {
   NOT_STARTED,
   RUNNING,
-  STOPED,
+  STOPPED,
   ERROR
 }

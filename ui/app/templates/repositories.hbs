@@ -49,7 +49,7 @@
             {{fa-icon "cog" size="lg"}}
           </a>
           <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-            {{#unless registry.isRunning}}
+            {{#unless registry.running}}
               <li><a {{action "start" registry}}>{{fa-icon "play"}}&nbsp;&nbsp;&nbsp;Start Syncing</a></li>
             {{else}}
               <li><a {{action "stop" registry}}>{{fa-icon "stop"}}&nbsp;&nbsp;&nbsp;Stop Syncing</a></li>

@@ -18,7 +18,9 @@
 
 package org.apache.ambari.view.web.service;
 
+import akka.actor.ActorRef;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ambari.view.internal.actor.repository.ScanManager;
 import org.apache.ambari.view.web.model.dto.RepositoryWrapper;
 import org.apache.ambari.view.web.model.entity.Registry;
 import org.apache.ambari.view.web.model.repository.RegistryRepository;
@@ -36,10 +38,12 @@ import static org.apache.ambari.view.web.model.dto.RepositoryWrapper.ActionReque
 @Slf4j
 public class RepositoryService {
   private final RegistryRepository registryRepository;
+  private final ActorRef repositoryScanManager;
 
   @Autowired
-  public RepositoryService(RegistryRepository registryRepository) {
+  public RepositoryService(RegistryRepository registryRepository, ActorRef repositoryScanManager) {
     this.registryRepository = registryRepository;
+    this.repositoryScanManager = repositoryScanManager;
   }
 
   public Registry create(RepositoryWrapper.CreateRequest request) {
@@ -70,8 +74,10 @@ public class RepositoryService {
     // TODO
     if (request.getRepository().getAction() == Actions.START) {
       log.info("Starting sync for '{}' registry", registry.getName());
+      repositoryScanManager.tell(new ScanManager.Start(registry.getName(), registry.getScanUrl()), ActorRef.noSender());
     } else {
       log.info("Stopping sync for '{}' registry", registry.getName());
+      repositoryScanManager.tell(new ScanManager.Stop(registry.getName()), ActorRef.noSender());
     }
   }
 }

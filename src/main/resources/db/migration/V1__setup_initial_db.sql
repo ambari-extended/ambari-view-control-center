@@ -28,9 +28,6 @@ CREATE TABLE registries (
 CREATE TABLE packages (
   id                        BIGINT AUTO_INCREMENT PRIMARY KEY,
   name                      VARCHAR(50) NOT NULL ,
-  organization              VARCHAR(512) NOT NULL ,
-  version                   VARCHAR(100) NOT NULL ,
-  deployment_definition     TEXT NOT NULL ,
   registry_id               BIGINT NOT NULL ,
   CONSTRAINT fk_registry_id FOREIGN KEY (registry_id) REFERENCES registries(id)
 );
