@@ -74,9 +74,10 @@ CREATE TABLE service_configurations (
 
 CREATE TABLE hosts (
   id                        BIGINT AUTO_INCREMENT PRIMARY KEY ,
-  host_name                 VARCHAR(255),
+  host_name                 VARCHAR(255) NOT NULL ,
   ipv4                      VARCHAR(100),
-  ipv6                      VARCHAR(100)
+  ipv6                      VARCHAR(100),
+  keyfile_location          VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE deployments (
@@ -117,6 +118,7 @@ CREATE TABLE instance_configs (
   instance_id               BIGINT,
   CONSTRAINT fk_instance_id FOREIGN KEY (instance_id) REFERENCES instances(id)
 );
+
 
 
 

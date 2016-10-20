@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-md-12 sub-header">
+    <div class="col-md-10">
+      <p>{{fa-icon "server"}} All Hosts</p>
+    </div>
+    <div class="col-md-2 pull-right">
+      {{#link-to "hosts.new" class="btn btn-block btn-success"}}{{fa-icon "plus"}} Add Host{{/link-to}}
+    </div>
+  </div>
+</div>
+
+<div class="row collection-table">
+  <div class="col-md-12 table-header">
+    <div class="col-md-3">
+      <strong>Host Name</strong>
+    </div>
+    <div class="col-md-7">
+      <strong>Key Location</strong>
+    </div>
+    <div class="col-md-2">
+      <strong>Actions</strong>
+    </div>
+  </div>
+  {{#each model as |host|}}
+    <div class="col-md-12 table-row">
+      <div class="col-md-3">
+        <strong>{{host.name}}</strong>
+      </div>
+      <div class="col-md-7">
+        {{host.keyfileLocation}}
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-warning" {{action 'delete' host}}>{{fa-icon "times"}} Delete</button>
+      </div>
+    </div>
+
+  {{/each}}
+
+</div>
+
+{{outlet}}

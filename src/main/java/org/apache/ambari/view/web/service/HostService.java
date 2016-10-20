@@ -16,29 +16,18 @@
  * limitations under the License.
  */
 
-package org.apache.ambari.view.web.model.entity;
+package org.apache.ambari.view.web.service;
 
-import lombok.Data;
+import org.apache.ambari.view.web.model.dto.ws.HostWrapper;
+import org.apache.ambari.view.web.model.entity.Host;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.List;
 
 /**
  *
  */
-@Data
-@Entity
-@Table(name = "hosts")
-public class Host {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
-
-  private String hostName;
-  private String ipv4;
-  private String ipv6;
-  private String keyfileLocation;
+public interface HostService {
+  List<Host> findAll();
+  void destroy(Long id);
+  Host create(HostWrapper.CreateRequest request);
 }

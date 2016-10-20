@@ -15,6 +15,7 @@
     </div>
     {{#bs-navbar-content}}
       {{#bs-navbar-nav class="navbar-right"}}
+        {{#bs-nav-item}}{{#link-to "workspace"}}Workspace{{/link-to}}{{/bs-nav-item}}
         {{#bs-nav-item}}{{#link-to "hosts"}}Hosts{{/link-to}}{{/bs-nav-item}}
         {{#bs-nav-item}}{{#link-to "repositories"}}Repositories{{/link-to}}{{/bs-nav-item}}
         {{#bs-dropdown tagName="li" }}

@@ -1,0 +1,30 @@
+{{#modal-dialog
+translucentOverlay=true
+container-class="modal-dialog"}}
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" {{action "close"}}><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title">{{fa-icon "server"}} Add a new host</h4>
+    </div>
+    <div class="modal-body">
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-2 control-label">Host Name</label>
+          <div class="col-sm-10">
+            {{input type="text" class="form-control" id="inputEmail3" placeholder="Host name" value=hostName}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputPassword3" class="col-sm-2 control-label">Public Key</label>
+          <div class="col-sm-10">
+            {{textarea class="form-control" id="inputPassword3" value=hostKey cols="80" rows="6"}}
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" {{action "close"}}>{{fa-icon "times"}} Cancel</button>
+      <button type="button" class="btn btn-primary" {{action "save"}}>{{fa-icon "download"}} Save</button>
+    </div>
+  </div><!-- /.modal-content -->
+{{/modal-dialog}}
