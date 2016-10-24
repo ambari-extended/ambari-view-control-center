@@ -18,7 +18,12 @@
 
 package org.apache.ambari.view.web.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
+import org.apache.ambari.view.web.model.dto.serializer.StringToJsonNodeSerializer;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,9 +47,12 @@ public class PackageVersion {
   private String version;
 
   @Column(columnDefinition = "TEXT")
+  @JsonProperty("config")
+  @JsonSerialize(using = StringToJsonNodeSerializer.class)
   private String deploymentDefinition;
 
   @ManyToOne
+  @JsonIgnore
   private Package viewPackage;
 
 }

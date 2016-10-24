@@ -18,6 +18,7 @@
 
 package org.apache.ambari.view.web.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.CascadeType;
@@ -46,6 +47,7 @@ public class Package {
   private String name;
 
   @ManyToOne
+  @JsonIgnore
   private Registry registry;
 
   @OneToMany(fetch = FetchType.EAGER,

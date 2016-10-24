@@ -16,19 +16,22 @@
  * limitations under the License.
  */
 
-package org.apache.ambari.view.web.model.repository;
+package org.apache.ambari.view.web.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.ambari.view.web.model.entity.Package;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.apache.ambari.view.web.model.entity.PackageVersion;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Repository for view package definitions
+ *
  */
-public interface PackageRepository extends JpaRepository<Package, Long> {
-  Optional<Package> findByName(String name);
-  List<Package> findByNameLike(String like);
+public interface PackageService {
+  List<Package> getPackagesLike(String like);
+  Optional<Package> getPackage(Long packageId);
+  Optional<PackageVersion> getVersion(Long versionId);
+  Optional<JsonNode> getApplicationConfig(Long versionId);
 }

@@ -16,19 +16,24 @@
  * limitations under the License.
  */
 
-package org.apache.ambari.view.web.model.repository;
+package org.apache.ambari.view.web.model.dto.serializer;
 
-import org.apache.ambari.view.web.model.entity.Package;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.io.IOException;
 
 /**
- * Repository for view package definitions
+ *
  */
-public interface PackageRepository extends JpaRepository<Package, Long> {
-  Optional<Package> findByName(String name);
-  List<Package> findByNameLike(String like);
+public class StringToJsonNodeSerializer extends JsonSerializer<String> {
+  @Override
+  public void serialize(String value, JsonGenerator gen, SerializerProvider serializers) throws IOException, JsonProcessingException {
+    ObjectMapper mapper = new ObjectMapper();
+    gen.writeObject(mapper.readValue(value, JsonNode.class));
+  }
 }
