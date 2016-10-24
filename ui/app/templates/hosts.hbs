@@ -1,3 +1,4 @@
+{{!--
 <div class="row">
   <div class="col-md-12 sub-header">
     <div class="col-md-10">
@@ -8,34 +9,54 @@
     </div>
   </div>
 </div>
-
-<div class="row collection-table">
-  <div class="col-md-12 table-header">
-    <div class="col-md-3">
-      <strong>Host Name</strong>
-    </div>
-    <div class="col-md-7">
-      <strong>Key Location</strong>
-    </div>
-    <div class="col-md-2">
-      <strong>Actions</strong>
+--}}
+<div class="row">
+  <div class="col-md-12 sub-header">
+    <div class="col-md-10">
+      <h1>{{fa-icon "server"}} All Hosts</h1>
     </div>
   </div>
-  {{#each model as |host|}}
-    <div class="col-md-12 table-row">
-      <div class="col-md-3">
-        <strong>{{host.name}}</strong>
-      </div>
-      <div class="col-md-7">
-        {{host.keyfileLocation}}
-      </div>
-      <div class="col-md-2">
-        <button class="btn btn-warning" {{action 'delete' host}}>{{fa-icon "times"}} Delete</button>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="col-md-4 card">
+      <div class="label-card">
+        {{#link-to 'hosts.new' class="thumbnail text-center"}}
+          {{fa-icon "plus" size="5"}}
+          <div class="caption">
+            <h3><strong>Add</strong></h3>
+            <p>Add new host</p>
+          </div>
+        {{/link-to}}
       </div>
     </div>
+    {{#each model as |host|}}
+      <div class="col-md-4 card">
+        <div class="thumbnail label-card">
+          <div class="text-center">
+            {{fa-icon "server" size="5"}}
+            <div class="caption">
+              <h3><strong>{{host.name}}</strong></h3>
+              <p>{{host.keyfileLocation}}</p>
+            </div>
+          </div>
+          <div>
+            <p class="status"><small class="label label-primary">{{registry.scanStatus}}</small></p>
 
-  {{/each}}
-
+            <div class="dropdown">
+              <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                {{fa-icon "cog" size="2"}}
+              </a>
+              <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                <li><a {{action "delete" host}}>{{fa-icon "times"}}&nbsp;&nbsp;&nbsp;Delete Host</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
 </div>
 
 {{outlet}}

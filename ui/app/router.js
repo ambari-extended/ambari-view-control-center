@@ -8,9 +8,11 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('workspace');
-  this.route('deployments');
+  this.route('deployments', function() {
+    this.route('add');
+  });
   this.route('clusters');
-  this.route('views');
+  this.route('instances');
   this.route('repositories', function() {
     this.route('new');
   });

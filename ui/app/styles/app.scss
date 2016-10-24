@@ -63,4 +63,17 @@
   a {
     text-decoration: none;
   }
+
+  .label-card {
+    .dropdown {
+      position: absolute;
+      top: 15px;
+      right: 30px;
+    }
+    .status {
+      position: absolute;
+      top: 15px;
+      left: 25px;
+    }
+  }
 }

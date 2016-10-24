@@ -1,68 +1,61 @@
 <div class="row">
   <div class="col-md-12 sub-header">
     <div class="col-md-10">
-      <p>{{fa-icon "database"}} All Repositories</p>
-    </div>
-    <div class="col-md-2 pull-right">
-      {{#link-to "repositories.new" class="btn btn-block btn-success"}}{{fa-icon "plus"}} Add Repository{{/link-to}}
+      <h1>{{fa-icon "database"}} All Repositories</h1>
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="col-md-4 card">
+      <div class="label-card">
+        {{#link-to 'repositories.new' class="thumbnail text-center"}}
+          {{fa-icon "plus" size="5"}}
+          <div class="caption">
+            <h3><strong>Add</strong></h3>
+            <p>Add new Repository</p>
+          </div>
+        {{/link-to}}
+      </div>
+    </div>
+    {{#each model as |registry|}}
+      <div class="col-md-4 card">
+        <div class="thumbnail label-card">
+          <div class="text-center">
+            {{fa-icon "database" size="5"}}
+            <div class="caption">
+              <h3><strong>{{registry.name}}</strong></h3>
+              <p>{{registry.scanUrl}}
+              {{#if registry.lastScannedAt}}
+                <p><span class="label label-info">Last scanned {{moment-from-now registry.lastScannedAt hideSuffix=true}} ago</span></p>
+              {{else}}
+                <p><span class="label label-info">Not Scanned</span></p>
+              {{/if}}
+              </p>
+            </div>
+          </div>
+          <div>
+              <p class="status"><small class="label label-primary">{{registry.scanStatus}}</small></p>
 
-<div class="row collection-table">
-  <div class="col-md-12 table-header">
-    <div class="col-md-2">
-      <strong>Name</strong>
-    </div>
-    <div class="col-md-5">
-      <strong>Scan URL</strong>
-    </div>
-    <div class="col-md-2">
-      <strong>Scan Status</strong>
-    </div>
-    <div class="col-md-2">
-      <strong>Last Scanned At</strong>
-    </div>
-    <div class="col-md-1">
-      <strong>Actions</strong>
-    </div>
-  </div>
-  {{#each model as |registry|}}
-    <div class="col-md-12 table-row">
-      <div class="col-md-2">
-        <strong>{{registry.name}}</strong>
-      </div>
-      <div class="col-md-5">
-        {{registry.scanUrl}}
-      </div>
-      <div class="col-md-2">
-        {{registry.scanStatus}}
-      </div>
-      <div class="col-md-2">
-        {{#if registry.lastScannedAt}}
-          {{moment-from-now registry.lastScannedAt hideSuffix=true}} ago
-        {{/if}}
-      </div>
-      <div class="col-md-1 text-center">
-        <div class="dropdown">
-          <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            {{fa-icon "cog" size="lg"}}
-          </a>
-          <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-            {{#unless registry.running}}
-              <li><a {{action "start" registry}}>{{fa-icon "play"}}&nbsp;&nbsp;&nbsp;Start Syncing</a></li>
-            {{else}}
-              <li><a {{action "stop" registry}}>{{fa-icon "stop"}}&nbsp;&nbsp;&nbsp;Stop Syncing</a></li>
-            {{/unless}}
+              <div class="dropdown">
+                <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  {{fa-icon "cog" size="2"}}
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                  {{#unless registry.running}}
+                    <li><a {{action "start" registry}}>{{fa-icon "play"}}&nbsp;&nbsp;&nbsp;Start Syncing</a></li>
+                  {{else}}
+                    <li><a {{action "stop" registry}}>{{fa-icon "stop"}}&nbsp;&nbsp;&nbsp;Stop Syncing</a></li>
+                  {{/unless}}
 
-            <li role="separator" class="divider"></li>
-            <li><a {{action "delete" registry}}>{{fa-icon "times"}}&nbsp;&nbsp;&nbsp;Delete Repository</a></li>
-          </ul>
+                  <li role="separator" class="divider"></li>
+                  <li><a {{action "delete" registry}}>{{fa-icon "times"}}&nbsp;&nbsp;&nbsp;Delete Repository</a></li>
+                </ul>
+              </div>
+          </div>
         </div>
       </div>
-    </div>
-
-  {{/each}}
-
+    {{/each}}
+  </div>
 </div>
 {{outlet}}

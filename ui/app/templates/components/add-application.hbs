@@ -1,0 +1,21 @@
+{{#modal-dialog
+translucentOverlay=true
+container-class="modal-dialog"}}
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" {{action "close"}}><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title">{{fa-icon "cube"}} Add a new application</h4>
+    </div>
+    <div class="modal-body clearfix">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="input-group">
+          {{input type="text" class="form-control" placeholder="Search for application names" value=searchField}}
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-primary" {{action "search" searchField}}>{{fa-icon "search"}} Search</button>
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.modal-content -->
+{{/modal-dialog}}
