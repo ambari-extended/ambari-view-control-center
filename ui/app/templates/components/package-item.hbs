@@ -1,0 +1,23 @@
+<div class="col-md-8">
+  <p class="lead"><strong>{{item.name}}</strong></p>
+</div>
+<div class="col-md-2">
+  <div class="row">
+    <select class="form-control input-sm" onchange={{action (mut selectedVersion) value="target.value"}}>
+      {{#each versionList as |version|}}
+        <option value={{version}} selected={{eq version selectedVersion}}>{{version}}</option>
+      {{/each}}
+    </select>
+  </div>
+</div>
+<div class="col-md-2">
+  <div class="row">
+    <button class="btn btn-sm btn-block btn-primary" {{action "deploy"}}>{{fa-icon "cloud-upload"}} Deploy</button>
+  </div>
+</div>
+<div class="col-md-12">
+  <p>
+    {{selectedVersionEntry.config.description}}
+  </p>
+</div>
+

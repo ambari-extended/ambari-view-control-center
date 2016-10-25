@@ -15,7 +15,13 @@ container-class="modal-dialog"}}
           </span>
         </div>
       </div>
+      <div class="col-md-12 package-list">
+        {{#each packages as |package|}}
+          <div class="row">
+            {{package-item item=package deployAction="deployVersion"}}
+          </div>
+        {{/each}}
+      </div>
     </div>
-
   </div><!-- /.modal-content -->
 {{/modal-dialog}}
