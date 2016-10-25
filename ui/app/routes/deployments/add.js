@@ -1,7 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  deploySuccess(repo) {
+  deploySuccess(data) {
+    this.get('store').pushPayload(data);
     this.transitionTo('deployments');
   },
   deployFailure(reason) {

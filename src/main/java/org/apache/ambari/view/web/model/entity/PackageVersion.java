@@ -21,8 +21,14 @@ package org.apache.ambari.view.web.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.ambari.view.internal.config.ApplicationConfig;
 import org.apache.ambari.view.web.model.dto.serializer.StringToJsonNodeSerializer;
 
 import javax.persistence.Column;
@@ -31,7 +37,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.PostLoad;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.io.IOException;
 
 /**
  *
@@ -47,12 +56,22 @@ public class PackageVersion {
   private String version;
 
   @Column(columnDefinition = "TEXT")
-  @JsonProperty("config")
-  @JsonSerialize(using = StringToJsonNodeSerializer.class)
+  @JsonIgnore
   private String deploymentDefinition;
+
+  @Setter(AccessLevel.NONE)
+  @Transient
+  private ApplicationConfig config;
 
   @ManyToOne
   @JsonIgnore
   private Package viewPackage;
+
+
+  @PostLoad
+  private void parseDeploymentDefinition() throws IOException {
+    ObjectMapper mapper = new ObjectMapper();
+    this.config = mapper.readValue(this.deploymentDefinition, ApplicationConfig.class);
+  }
 
 }

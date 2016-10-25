@@ -19,8 +19,9 @@
 package org.apache.ambari.view.web.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
+import org.apache.ambari.view.internal.config.ApplicationConfig;
+import org.apache.ambari.view.web.model.entity.Deployment;
 import org.apache.ambari.view.web.model.entity.Package;
 import org.apache.ambari.view.web.model.entity.PackageVersion;
 
@@ -61,9 +62,17 @@ public class PackageWrapper {
 
   @Data
   public static class ApplicationConfigResponse {
-    private JsonNode config;
-    public ApplicationConfigResponse(JsonNode config) {
+    private ApplicationConfig config;
+    public ApplicationConfigResponse(ApplicationConfig config) {
       this.config = config;
+    }
+  }
+
+  @Data
+  public static class VersionDeployResponse {
+    private Deployment deployment;
+    public VersionDeployResponse(Deployment deployment) {
+      this.deployment = deployment;
     }
   }
 

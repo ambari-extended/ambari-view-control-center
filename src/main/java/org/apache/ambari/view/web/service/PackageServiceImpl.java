@@ -18,18 +18,18 @@
 
 package org.apache.ambari.view.web.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ambari.view.internal.config.ApplicationConfig;
+import org.apache.ambari.view.web.model.entity.Deployment;
 import org.apache.ambari.view.web.model.entity.Package;
 import org.apache.ambari.view.web.model.entity.PackageVersion;
+import org.apache.ambari.view.web.model.repository.DeploymentRepository;
 import org.apache.ambari.view.web.model.repository.PackageRepository;
 import org.apache.ambari.view.web.model.repository.PackageVersionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,11 +41,15 @@ import java.util.Optional;
 public class PackageServiceImpl implements PackageService {
   private final PackageRepository packageRepository;
   private final PackageVersionRepository packageVersionRepository;
+  private final DeploymentRepository deploymentRepository;
 
   @Autowired
-  public PackageServiceImpl(PackageRepository packageRepository, PackageVersionRepository packageVersionRepository) {
+  public PackageServiceImpl(PackageRepository packageRepository,
+                            PackageVersionRepository packageVersionRepository,
+                            DeploymentRepository deploymentRepository) {
     this.packageRepository = packageRepository;
     this.packageVersionRepository = packageVersionRepository;
+    this.deploymentRepository = deploymentRepository;
   }
 
   @Override
@@ -64,15 +68,30 @@ public class PackageServiceImpl implements PackageService {
   }
 
   @Override
-  public Optional<JsonNode> getApplicationConfig(Long versionId) {
+  public Optional<ApplicationConfig> getApplicationConfig(Long versionId) {
     PackageVersion version = packageVersionRepository.findOne(versionId);
-    if(version == null) return Optional.empty();
-    ObjectMapper mapper = new ObjectMapper();
-    try {
-      return Optional.ofNullable(mapper.readValue(version.getDeploymentDefinition(), JsonNode.class));
-    } catch (IOException e) {
-      log.error("Failed to parse Application Config for version: {}", versionId);
-      throw new RuntimeException("Failed to parse Application Config for version: " + versionId);
+    if (version == null) return Optional.empty();
+    return Optional.ofNullable(version.getConfig());
+  }
+
+  @Override
+  @Transactional
+  public Deployment deployPackageVersion(Long versionId) {
+    PackageVersion version = packageVersionRepository.findOne(versionId);
+    if (version == null) {
+      log.error("No package version found to deploy with version id: {}", versionId);
+      throw new RuntimeException("No package version found for version id: " + versionId);
     }
+
+    Deployment deployment = deploymentRepository.findByPackageVersion(version);
+
+    if(deployment != null) {
+      log.error("Deployment with the same package version with id: '{}' already exists", versionId);
+      throw new RuntimeException("Deployment with the same package version with id: '" + versionId + "' already exists.");
+    }
+    deployment = new Deployment();
+    deployment.setPackageVersion(version);
+    deployment.setName(version.getConfig().getLabel() + " # " + version.getVersion() );
+    return deploymentRepository.save(deployment);
   }
 }

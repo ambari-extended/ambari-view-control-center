@@ -19,10 +19,12 @@
 package org.apache.ambari.view.web.model.repository;
 
 import org.apache.ambari.view.web.model.entity.Deployment;
+import org.apache.ambari.view.web.model.entity.PackageVersion;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Deployment Repository
  */
 public interface DeploymentRepository extends JpaRepository<Deployment, Long> {
+  Deployment findByPackageVersion(PackageVersion version);
 }

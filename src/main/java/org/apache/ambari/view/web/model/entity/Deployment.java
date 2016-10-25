@@ -18,6 +18,7 @@
 
 package org.apache.ambari.view.web.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -40,9 +41,10 @@ public class Deployment {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  private String deploymentName;
+  private String name;
 
   @OneToOne
+  @JsonProperty("version")
   private PackageVersion packageVersion;
 
   @OneToMany(mappedBy = "deployment")

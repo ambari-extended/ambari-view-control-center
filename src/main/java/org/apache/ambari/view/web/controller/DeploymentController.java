@@ -16,24 +16,36 @@
  * limitations under the License.
  */
 
-package org.apache.ambari.view.web.service;
+package org.apache.ambari.view.web.controller;
 
-import org.apache.ambari.view.internal.config.ApplicationConfig;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.ambari.view.web.model.dto.DeploymentWrapper;
 import org.apache.ambari.view.web.model.entity.Deployment;
-import org.apache.ambari.view.web.model.entity.Package;
-import org.apache.ambari.view.web.model.entity.PackageVersion;
+import org.apache.ambari.view.web.service.DeploymentService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  *
  */
-public interface PackageService {
-  List<Package> getPackagesLike(String like);
-  Optional<Package> getPackage(Long packageId);
-  Optional<PackageVersion> getVersion(Long versionId);
-  Optional<ApplicationConfig> getApplicationConfig(Long versionId);
+@RestController
+@Slf4j
+@RequestMapping("/api/v1/deployments")
+public class DeploymentController {
 
-  Deployment deployPackageVersion(Long versionId);
+  private final DeploymentService service;
+
+  public DeploymentController(DeploymentService service) {
+    this.service = service;
+  }
+
+  @GetMapping
+  public DeploymentWrapper.GetAllResponse getAll() {
+    List<Deployment> deployments = service.getAll();
+    return new DeploymentWrapper.GetAllResponse(deployments);
+
+  }
 }

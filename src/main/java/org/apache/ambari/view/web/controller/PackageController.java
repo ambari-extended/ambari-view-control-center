@@ -21,6 +21,7 @@ package org.apache.ambari.view.web.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ambari.view.internal.config.ApplicationConfig;
 import org.apache.ambari.view.web.model.dto.PackageWrapper;
 import org.apache.ambari.view.web.model.entity.Package;
 import org.apache.ambari.view.web.model.entity.PackageVersion;
@@ -82,7 +83,7 @@ public class PackageController {
 
   @GetMapping("/versions/{versionId}/config")
   public PackageWrapper.ApplicationConfigResponse getApplicationConfig(@PathVariable("versionId") Long versionId) {
-    Optional<JsonNode> applicationConfigOptional = service.getApplicationConfig(versionId);
+    Optional<ApplicationConfig> applicationConfigOptional = service.getApplicationConfig(versionId);
     if(!applicationConfigOptional.isPresent()) {
       log.error("Configuration for package version id: {} not found", versionId);
       throw new RuntimeException("Package Version not found. Could not retrieve configuration.");

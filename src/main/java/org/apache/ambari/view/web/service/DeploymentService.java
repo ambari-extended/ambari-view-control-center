@@ -18,22 +18,13 @@
 
 package org.apache.ambari.view.web.service;
 
-import org.apache.ambari.view.internal.config.ApplicationConfig;
 import org.apache.ambari.view.web.model.entity.Deployment;
-import org.apache.ambari.view.web.model.entity.Package;
-import org.apache.ambari.view.web.model.entity.PackageVersion;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  *
  */
-public interface PackageService {
-  List<Package> getPackagesLike(String like);
-  Optional<Package> getPackage(Long packageId);
-  Optional<PackageVersion> getVersion(Long versionId);
-  Optional<ApplicationConfig> getApplicationConfig(Long versionId);
-
-  Deployment deployPackageVersion(Long versionId);
+public interface DeploymentService {
+  List<Deployment> getAll();
 }

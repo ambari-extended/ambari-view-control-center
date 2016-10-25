@@ -7,10 +7,10 @@ export default DS.Model.extend({
   package: DS.belongsTo('package'),
 
   deploy: function() {
-    console.log("Deploying this version.....");
     let adapter = this.get('store').adapterFor(this.constructor.modelName);
-    return adapter.deploy(this, true).then(() => {
+    return adapter.deploy(this, true).then((data) => {
       this.set('deployed', true);
+      return data;
     });
   }
 });

@@ -82,9 +82,9 @@ CREATE TABLE hosts (
 
 CREATE TABLE deployments (
   id                        BIGINT AUTO_INCREMENT PRIMARY KEY ,
-  deployment_name           VARCHAR(50),
+  name                      VARCHAR(50),
   package_version_id        BIGINT,
-  CONSTRAINT fk_package_Version_id FOREIGN KEY (package_version_id) REFERENCES packages(id)
+  CONSTRAINT fk_package_Version_id FOREIGN KEY (package_version_id) REFERENCES package_versions(id)
 );
 
 CREATE TABLE nodes (
